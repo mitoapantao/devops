@@ -1,16 +1,15 @@
 <?php
+ namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
+ use JWTAuth;
+ use App\Models\User;
+ use Illuminate\Http\Request;
+ use Tymon\JWTAuth\Exceptions\JWTException;
+ use Symfony\Component\HttpFoundation\Response;
+ use Illuminate\Support\Facades\Validator;
 
-use Tymon\JWTAuth\JWTAuth;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Validator;
-
-class JwtController extends Controller
-{
+ class JwtController extends Controller
+ {
     public function register(Request $request)
     {
     	//Validate data
@@ -23,7 +22,7 @@ class JwtController extends Controller
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
+            return response()->json(['error'], 200);
         }
 
         //Request is valid, create new user
@@ -53,7 +52,7 @@ class JwtController extends Controller
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
+            return response()->json(['error'], 200);
         }
 
         //Request is validated
@@ -89,7 +88,7 @@ class JwtController extends Controller
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
+            return response()->json(['error'], 200);
         }
 
 		//Request is validated, do logout        
@@ -118,4 +117,4 @@ class JwtController extends Controller
  
         return response()->json(['user' => $user]);
     }
-}
+ }
